@@ -44,6 +44,7 @@ alias ohmyzsh="cd ~/.oh-my-zsh"
 alias zsource='source ~/.zshrc'
 alias c='clear'
 alias e='exit'
+alias whoport='lsof -nP -i4TCP:8000 | grep LISTEN'
 
 #DIR Alias
 alias vpath="cd ~/Google/WEB_DEV/_localServer/domains"
@@ -65,7 +66,11 @@ alias add='git add .'
 alias commit='git commit -m'
 alias push='git push origin master'
 alias pull='git pull'
+alias nah='git reset --hard;git clean -df'
 # glog
+
+#Composer
+alias cda='composer dump-autoload'
 
 #Docker Alias
 alias dcup='docker-compose up'
@@ -82,8 +87,7 @@ alias ldbash='docker-compose exec --user=laradock workspace bash'
 alias ldserve='docker-compose up -d nginx mysql phpmyadmin redis workspace'
 alias ldstop='docker-compose stop'
 alias ldwork='docker-compose exec --user=laradock workspace bash'
-# Генерация PHPDoc для моделей (Laravel IDE Helper)
-alias modelhelp='php artisan ide-helper:models --dir="app/src/Models"'
+
 
 #Laravel Alias
 alias laravel="~/.composer/vendor/bin/laravel"
@@ -95,6 +99,7 @@ alias model='php artisan make:model'
 alias migration='php artisan make:migration'
 alias migrate='php artisan migrate --seed'
 alias seed='php artisan make:seed'
+alias seeder='php artisan db:seed --class='
 alias refresh='php artisan migrate:refresh --seed'
 alias routelist='php artisan route:list'
 alias storage-enable='php artisan storage:link'
@@ -102,6 +107,7 @@ alias storage-enable='php artisan storage:link'
 alias modelhelp='php artisan ide-helper:models --dir="app/src/Models"'
 
 #NPM
+alias nins='npm install'
 alias ndev='npm run dev'
 alias nprod='npm run prod'
 alias nwatch='npm run watch'
@@ -116,3 +122,5 @@ alias testy='vendor/bin/phpunit --colors=always'
 #export PATH="\$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM
+
+export PATH="/usr/local/opt/php@7.4/bin:$PATH"
