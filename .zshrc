@@ -54,6 +54,15 @@ alias dockpath="cd ~/_docker/"
 
 #PHP
 alias phpini="cd /usr/local/etc/php/" # + vers PHP, ex 7.3
+alias whereisphp='php -i |grep php\.ini'
+alias phpini='code /usr/local/etc/php/7.4/php.ini'
+alias php72='brew unlink php@7.4 && brew link --force --overwrite php@7.2'
+alias php74='brew unlink php@7.2 && brew link --force --overwrite php@7.4'
+alias phprestart='brew services restart php'
+alias phpserve='php -S 127.0.0.1:8000 -t public'
+
+#PHPUnit
+alias testy='vendor/bin/phpunit --colors=always'
 
 #Editor alias
 alias edit='/usr/local/Cellar/midnight-commander/4.8.22/bin/mcedit'
@@ -94,6 +103,7 @@ alias laravel="~/.composer/vendor/bin/laravel"
 alias larperm='sudo chgrp -R www-data storage bootstrap/cache; sudo chmod -R ug+rwx storage bootstrap/cache'
 alias lara='php artisan'
 alias serve='php artisan serve'
+alias laraclear='php artisan cache:clear && php artisan config:cache'
 alias controller='php artisan make:controller'
 alias model='php artisan make:model'
 alias migration='php artisan make:migration'
