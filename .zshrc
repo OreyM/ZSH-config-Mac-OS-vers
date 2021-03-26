@@ -1,72 +1,110 @@
-#source ~/.bash_profile
-
-# Launch screenfetch
-# screenfetch
-
 # Default directory
 cd ~/_project/
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+ZSH_DISABLE_COMPFIX='true'
 
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/oreym/.oh-my-zsh"
+# export ZSH='/Users/orey/.oh-my-zsh'
+# source $ZSH/oh-my-zsh.sh
+export ZSH="/Users/orey/.oh-my-zsh"
 
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_MODE="nerdfont-complete"
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
-
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+# https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 plugins=(
-    git
-    npm
-    vagrant
-    composer
-    sudo
-    web-search
-    laravel5
-    docker
-    colored-man-pages
+    brew                # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/brew
+    colored-man-pages   # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/colored-man-pages
+    colorize            # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/colorize
+    composer            # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/composer
+    docker              # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker
+    docker-compose      # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker-compose
+    git                 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+    laravel             # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/laravel
+    node                # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/node
+    npm                 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/npm
+    sudo                # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/sudo
+    symfony             # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/symfony
+    symfony2            # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/symfony2
+    vagrant             # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/vagrant
+    web-search          # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/web-search
+    zsh-interactive-cd  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/zsh-interactive-cd
+                        # This plugin requires fzf => `brew install fzf`
 )
+
+
+# ZSH_THEME="robbyrussell"
+ZSH_THEME='powerlevel9k/powerlevel9k'
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='↳ '
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
 
 source $ZSH/oh-my-zsh.sh
 
-# Example aliases
-alias zconf="code ~/.zshrc"
-alias ohmyzsh="cd ~/.oh-my-zsh"
-alias zsource='source ~/.zshrc'
+# Default aliases
+alias s='sudo ' # or double ESC for insert 'sudo' before the last command
 alias c='clear'
 alias e='exit'
-alias whoport='lsof -nP -i4TCP:8000 | grep LISTEN'
+alias screen='screenfetch' # need `brew install screenfetch`
+alias h='history'
+alias ip='curl ifconfig.co' # My Ip
+alias port:80='netstat -nat|grep -i ":80"|wc -l' # view all 80 Port Connections
+alias port:who='lsof -nP -i4TCP:8000 | grep LISTEN' # check port :8000
+alias -g G='|grep' # 
+# alias l='ls'
+# alias ll='ls -l'
+# alias la='ls -a'
+alias lal='ls -la'
+alias li='ls -ial' # show with inodes
+alias lsd='ls -ld *(-/DN)' # show catalog only
+alias mem='ps -e -orss=,args= | sort -b -k1 -nr | head -10' # display the top 10 processes using the most memory
+alias cpu='ps -e -o pcpu,cpu,nice,state,cputime,args |sort -k1 -nr | head -10' # display the top 10 processes using the most CPU
+
+# FUNCTIONS
+# list contents of directories in a tree-like format
+if ! (( $+commands[tree] )); then
+    tree () {
+        find $@ -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+    }
+fi
+# Clear zombie processes
+clrz() {
+    ps -eal | awk '{ if ($2 == "Z") {print $4}}' | kill -9
+}
+
+# ZSH
+alias ohmyzsh='cd ~/.oh-my-zsh'
+alias z:c='code ~/.zshrc' # edit zsh conf
+alias z:s='source ~/.zshrc' # update zsh
+
+# Brew
+alias='brew services list' # show all brew services
 
 #DIR Alias
-alias vpath="cd ~/Google/WEB_DEV/_localServer/domains"
-alias localpath="cd ~/domain/"
-alias project="cd ~/_project/"
-alias dockpath="cd ~/_docker/"
-
-#PHP
-alias phpini="cd /usr/local/etc/php/" # + vers PHP, ex 7.3
-alias whereisphp='php -i |grep php\.ini'
-alias phpini='code /usr/local/etc/php/7.4/php.ini'
-alias php72='brew unlink php@7.4 && brew link --force --overwrite php@7.2'
-alias php74='brew unlink php@7.2 && brew link --force --overwrite php@7.4'
-alias phprestart='brew services restart php'
-alias phpserve='php -S 127.0.0.1:8000 -t public'
-
-#PHPUnit
-alias testy='vendor/bin/phpunit --colors=always'
+alias dir:p='cd ~/_project/'
+alias dir:d='cd ~/_docker/'
 
 #Editor alias
-alias edit='/usr/local/Cellar/midnight-commander/4.8.22/bin/mcedit'
-alias phpstorm='/Applications/PhpStorm.app/Contents/MacOS/phpstorm'
+alias edit='/usr/local/Cellar/midnight-commander/4.8.22/bin/mcedit' # Midnight Commander Edit
+alias storm='/Applications/PhpStorm.app/Contents/MacOS/phpstorm' # PhpStorm IDE
+
+#PHP
+alias phpini='cd /usr/local/etc/php/' # + vers PHP, ex 7.3
+alias phpserve='php -S localhost:8000' # simple php serve
+
+# NGINX
+alias nginx:status='sudo nginx -s status'
+alias nginx:start='sudo nginx -s start'
+alias nginx:stop='sudo nginx -s stop'
+alias nginx:restart='sudo nginx -s restart'
+
+# MySQL
+alias mysql:status='sudo /usr/local/mysql/support-files/mysql.server status'
+alias mysql:start='sudo /usr/local/mysql/support-files/mysql.server start'
+alias mysql:stop='sudo /usr/local/mysql/support-files/mysql.server stop'
+alias mysql:restart='sudo /usr/local/mysql/support-files/mysql.server restart'
+alias mysql:local='mysql -u root -proot'
+
+# SSH
+alias ssh:enter='ssh USER@IP' # sergiy@10.0.0.1
+alias ssh:port='ssh USER@IP -p PORT' # ssh sergiy@192.168.1.2 -p 2223
 
 #GIT Alias
 alias clone='git clone'
@@ -74,63 +112,81 @@ alias status='git status'
 alias add='git add .'
 alias commit='git commit -m'
 alias push='git push origin master'
+alias push:m='git push -u origin main'
 alias pull='git pull'
-alias nah='git reset --hard;git clean -df'
+alias nah='git reset --hard;git clean -df' 
 # glog
 
 #Composer
-alias cda='composer dump-autoload'
+# ci    | composer install
+# cdo   | composer dump-autoload -o
+# cu    | composer update
 
 #Docker Alias
-alias dcup='docker-compose up'
-alias dcdown='docker-compose stop'
+alias dcup='docker-compose up nginx mysql phpmyadmin redis beanstalkd'
+alias dcstop='docker-compose stop'
+alias dcwork='docker-compose exec workspace zsh'
+alias dcmysql='docker-compose exec mysql bash'
 
 # Laradock
 ## https://github.com/Laradock/laradock.git
 # DB_HOST=mysql
 # REDIS_HOST=redis
 # QUEUE_HOST=beanstalkd
-alias laradock='git clone https://github.com/Laradock/laradock.git'
-alias laradockenv='cp env-example .env'
-alias ldbash='docker-compose exec --user=laradock workspace bash'
 alias ldserve='docker-compose up -d nginx mysql phpmyadmin redis workspace'
+alias ldbash='docker-compose exec --user=laradock workspace bash'
 alias ldstop='docker-compose stop'
 alias ldwork='docker-compose exec --user=laradock workspace bash'
 
 
 #Laravel Alias
-alias laravel="~/.composer/vendor/bin/laravel"
+alias laravel='~/.composer/vendor/bin/laravel'
 alias larperm='sudo chgrp -R www-data storage bootstrap/cache; sudo chmod -R ug+rwx storage bootstrap/cache'
 alias lara='php artisan'
 alias serve='php artisan serve'
-alias laraclear='php artisan cache:clear && php artisan config:cache'
 alias controller='php artisan make:controller'
 alias model='php artisan make:model'
+alias observer='php artisan make:observer' # NameObserver --model=Model/ModelName
+alias db:reset='php artisan migrate:reset && php artisan migrate --seed'
 alias migration='php artisan make:migration'
-alias migrate='php artisan migrate --seed'
-alias seed='php artisan make:seed'
-alias seeder='php artisan db:seed --class='
+alias migrate='php artisan migrate'
+alias seeder='php artisan make:seed'
+alias seed='php artisan db:seed --class='
+alias fresh="php artisan migrate:fresh"
 alias refresh='php artisan migrate:refresh --seed'
-alias routelist='php artisan route:list'
-alias storage-enable='php artisan storage:link'
+alias route:l='php artisan route:list'
+alias route:g='php artisan  route:list | grep -i'
+alias storage:l='php artisan storage:link'
+alias dusk='php artisan dusk'
 # Генерация PHPDoc для моделей (Laravel IDE Helper)
-alias modelhelp='php artisan ide-helper:models --dir="app/src/Models"'
+alias modelhelp='php artisan ide-helper:models --dir="app/Entity"'
 
-#NPM
-alias nins='npm install'
-alias ndev='npm run dev'
-alias nprod='npm run prod'
-alias nwatch='npm run watch'
+# NPM
+alias npm:i='npm install'
+alias npm:s='npms search'
+alias npm:w='npm run watch'
+alias npm:d='npm run dev'
+alias npm:p='npm run prod'
+# # Opens https://nodejs.org/docs/latest-v10.x/api/fs.html
+# $ node-docs fs
+# # Opens https://nodejs.org/docs/latest-v10.x/api/path.html
+# $ node-docs path
+
+# Yarn
+alias yarn:i='yarn install'
+alias yarn:b='yarn build'
+alias yarn:s='yarn serve'
+alias yarn:d='yarn dev'
+alias yarn:r='yarn run'
+alias yarn:c='yarn cache clean'
+
+
 
 #PHPUnit Alias
 alias testy='vendor/bin/phpunit --colors=always'
-
-#PATH
-#export PATH="/usr/local/sbin:$PATH"
-
-# Add Visual Studio Code (code)
-#export PATH="\$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+alias testy:f="phpunit --filter"
+alias testy:d='phpunit --debug'
 
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM
 
-export PATH="/usr/local/opt/php@7.4/bin:$PATH"
+export PATH=${PATH}:/usr/local/mysql/bin/
