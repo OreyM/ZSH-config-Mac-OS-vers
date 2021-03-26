@@ -1,3 +1,8 @@
+###########################################################
+###########   ZSH CONFIG SCRIPT BY Uncle Orey   ###########
+###########        oreymgt@gmail.com            ###########
+###########################################################
+
 # Default directory
 cd ~/_project/
 
@@ -73,6 +78,7 @@ clrz() {
 alias ohmyzsh='cd ~/.oh-my-zsh'
 alias z:c='code ~/.zshrc' # edit zsh conf
 alias z:s='source ~/.zshrc' # update zsh
+alias z:h='ccat ~/.zshrc' # look zsh conf
 
 # Brew
 alias='brew services list' # show all brew services
@@ -179,8 +185,6 @@ alias yarn:s='yarn serve'
 alias yarn:d='yarn dev'
 alias yarn:r='yarn run'
 alias yarn:c='yarn cache clean'
-
-
 
 #PHPUnit Alias
 alias testy='vendor/bin/phpunit --colors=always'
