@@ -49,6 +49,7 @@ source $ZSH/oh-my-zsh.sh
 alias s='sudo ' # or double ESC for insert 'sudo' before the last command
 alias c='clear'
 alias e='exit'
+alias m='make '
 alias screen='screenfetch' # need `brew install screenfetch`
 alias h='history'
 alias ip='curl ifconfig.co' # My Ip
@@ -90,18 +91,20 @@ alias dir:p='cd ~/_project/'
 alias dir:d='cd ~/_docker/'
 
 #Editor alias
-alias edit='/usr/local/Cellar/midnight-commander/4.8.22/bin/mcedit' # Midnight Commander Edit
+alias edit='mcedit ' # Midnight Commander Edit
 alias storm='/Applications/PhpStorm.app/Contents/MacOS/phpstorm' # PhpStorm IDE
 
 #PHP
 alias phpini='cd /usr/local/etc/php/' # + vers PHP, ex 7.3
 alias phpserve='php -S localhost:8000' # simple php serve
+alias phpserve:pub='php -S localhost:8000 public/index.php' # simple php serve
 
 # NGINX
 alias nginx:status='sudo nginx -s status'
 alias nginx:start='sudo nginx -s start'
 alias nginx:stop='sudo nginx -s stop'
 alias nginx:restart='sudo nginx -s restart'
+alias nginx:ip="ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'"
 
 # MySQL
 alias mysql:status='sudo /usr/local/mysql/support-files/mysql.server status'
@@ -113,8 +116,11 @@ alias mysql:local='mysql -u root -proot'
 # SSH
 alias ssh:enter='ssh USER@IP' # sergiy@10.0.0.1
 alias ssh:port='ssh USER@IP -p PORT' # ssh sergiy@192.168.1.2 -p 2223
+alias ssh:key-gen='ssh-keygen -t rsa -b 4096'
+alias ssh:key='cat ~/.ssh/id_rsa.pub'
 
 #GIT Alias
+alias git:editor='git config --global core.editor mcedit'
 alias clone='git clone'
 alias status='git status'
 alias add='git add .'
@@ -131,10 +137,11 @@ alias nah='git reset --hard;git clean -df'
 # cu    | composer update
 
 #Docker Alias
-alias dcup='docker-compose up nginx mysql phpmyadmin redis beanstalkd'
-alias dcstop='docker-compose stop'
-alias dcwork='docker-compose exec workspace zsh'
-alias dcmysql='docker-compose exec mysql bash'
+alias dc:up='docker-compose up nginx mysql phpmyadmin redis beanstalkd'
+alias dc:stop='docker-compose stop'
+alias dc:work='docker-compose exec workspace zsh'
+alias dc:mysql='docker-compose exec mysql bash'
+alias dc:cli='docker-compose run --rm api-php-cli '
 
 # Laradock
 ## https://github.com/Laradock/laradock.git
@@ -170,8 +177,8 @@ alias dusk='php artisan dusk'
 alias modelhelp='php artisan ide-helper:models --dir="app/Entity"'
 
 # NPM
-alias npm:i='npm install'
-alias npm:s='npms search'
+alias npm:i='npm install '
+alias npm:s='npms search '
 alias npm:w='npm run watch'
 alias npm:d='npm run dev'
 alias npm:p='npm run prod'
@@ -179,9 +186,14 @@ alias npm:p='npm run prod'
 # $ node-docs fs
 # # Opens https://nodejs.org/docs/latest-v10.x/api/path.html
 # $ node-docs path
+# EXPO
+alias expo:s='npm start' # you can open iOS, Android, or web from here, or run them directly with the commands below.
+alias expo:a='npm run android'
+alias expo:i='npm run ios'
+alias expo:w='npm run web'
 
 # Yarn
-alias yarn:i='yarn install'
+alias yarn:i='yarn install '
 alias yarn:b='yarn build'
 alias yarn:s='yarn serve'
 alias yarn:d='yarn dev'
@@ -196,3 +208,4 @@ alias testy:d='phpunit --debug'
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM
 
 export PATH=${PATH}:/usr/local/mysql/bin/
+export PATH=$PATH:/Users/orey/Library/Python/2.7/bin
