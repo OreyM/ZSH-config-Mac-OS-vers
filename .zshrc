@@ -7,7 +7,7 @@
 
 ZSH_DISABLE_COMPFIX='true'
 
-export ZSH="/Users/orey/.oh-my-zsh" # Set [USER]!
+export ZSH="/Users/[USER]/.oh-my-zsh" # Set [USER]!
 source $ZSH/oh-my-zsh.sh
 
 ## Default directory
@@ -275,9 +275,9 @@ alias rn:serve='ngrok http http://127.0.0.1:8000'
 [[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh  # This loads NVM
 
 export PATH=${PATH}:/usr/local/mysql/bin/
-export PATH=$PATH:/Users/orey/Library/Python/2.7/bin # Set [USER]!
+export PATH=$PATH:/Users/[USER]/Library/Python/2.7/bin # Set [USER]!
 # ___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 export PATH="$HOME/.symfony5/bin:$PATH"
-export ANDROID_HOME=/Users/orey/Library/Android/sdk # Set [USER]!
+export ANDROID_HOME=/Users/[USER]/Library/Android/sdk # Set [USER]!
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
